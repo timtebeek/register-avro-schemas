@@ -1,0 +1,16 @@
+{
+	"namespace": "com.github.timtebeek.avro",
+	"type": "record",
+	"name": "Price",
+	"fields": [
+		{
+			"name": "value",
+			"type": {
+				"type": "bytes",
+				"logicalType": "decimal",
+				"precision": 10,
+				"scale": 3
+			}
+		}
+	]
+}

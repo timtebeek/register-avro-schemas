@@ -1,0 +1,69 @@
+version: '3.6'
+
+volumes:
+  zookeeper-data:
+    driver: local
+  zookeeper-log:
+    driver: local
+  kafka-data:
+    driver: local
+
+services:
+  akhq:
+    image: tchiotludo/akhq
+    environment:
+      AKHQ_CONFIGURATION: |
+        akhq:
+          connections:
+            docker-kafka-server:
+              properties:
+                bootstrap.servers: "kafka:9092"
+              schema-registry:
+                url: "http://schema-registry:8085"
+    ports:
+      - 8080:8080
+    links:
+      - kafka
+      - schema-registry
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper
+    volumes:
+      - zookeeper-data:/var/lib/zookeeper/data:Z
+      - zookeeper-log:/var/lib/zookeeper/log:Z
+    environment:
+      ZOOKEEPER_CLIENT_PORT: '2181'
+      ZOOKEEPER_ADMIN_ENABLE_SERVER: 'false'
+
+  kafka:
+    image: confluentinc/cp-kafka
+    volumes:
+      - kafka-data:/var/lib/kafka/data:Z
+    environment:
+      KAFKA_BROKER_ID: '0'
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_NUM_PARTITIONS: '12'
+      KAFKA_COMPRESSION_TYPE: 'gzip'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: '1'
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: '1'
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: '1'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://kafka:9092'
+      KAFKA_CONFLUENT_SUPPORT_METRICS_ENABLE: 'false'
+      KAFKA_JMX_PORT: '9091'
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      KAFKA_AUTHORIZER_CLASS_NAME: 'kafka.security.auth.SimpleAclAuthorizer'
+      KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: 'true'
+    links:
+      - zookeeper
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry
+    depends_on:
+      - kafka
+    ports:
+      - 8085:8085
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'PLAINTEXT://kafka:9092'
+      SCHEMA_REGISTRY_HOST_NAME: 'schema-registry'
+      SCHEMA_REGISTRY_LISTENERS: 'http://0.0.0.0:8085'
+      SCHEMA_REGISTRY_LOG4J_ROOT_LOGLEVEL: 'INFO'

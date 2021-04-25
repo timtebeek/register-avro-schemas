@@ -1,0 +1,29 @@
+{
+	"namespace": "com.github.timtebeek.avro",
+	"type": "record",
+	"name": "Book",
+	"fields": [
+		{
+			"name": "bookId",
+			"type": {
+				"type": "string",
+				"logicalType": "uuid"
+			}
+		},
+		{
+			"name": "title",
+			"type": "string"
+		},
+		{
+			"name": "subTitle",
+			"type": [
+				"null",
+				"string"
+			]
+		},
+		{
+			"name": "price",
+			"type": "com.github.timtebeek.avro.Price"
+		}
+	]
+}
