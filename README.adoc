@@ -115,7 +115,7 @@ We also use a variety of types to showcase the use of logicalTypes, as well as t
 
 As you can see the Price type references in `Book.avsc` and `Order.avsc` use the namespace of the Price records.
 This way you can define types once, and reuse them between different Avro schemas.
-Note however that type references are not supported in all code generation implementations, a notable exception being `AvroGen` for C#. ☹️
+Note however that type references are not supported in all code generation implementations, a notable exception being https://issues.apache.org/jira/browse/AVRO-1724[`AvroGen` for C#]. ☹️
 
 ## Generate Java classes (optional)
 
