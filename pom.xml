@@ -52,7 +52,7 @@
 			<plugin>
 				<groupId>org.apache.avro</groupId>
 				<artifactId>avro-maven-plugin</artifactId>
-				<version>1.10.2</version>
+				<version>1.11.0</version>
 				<configuration>
 					<sourceDirectory>${project.basedir}/src/main/avro/</sourceDirectory>
 					<!-- Use private visibility for Avro class fields instead of public -->
