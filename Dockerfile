@@ -1,4 +1,4 @@
-FROM openjdk:16
+FROM openjdk:17
 WORKDIR /app
 COPY mvnw mvnw
 COPY .mvn/ /app/.mvn/
