@@ -81,7 +81,7 @@
 			<plugin>
 				<groupId>io.confluent</groupId>
 				<artifactId>kafka-schema-registry-maven-plugin</artifactId>
-				<version>7.2.0</version>
+				<version>7.2.1</version>
 				<configuration>
 					<schemaRegistryUrls>
 						<param>${schema-registry-url}</param>
