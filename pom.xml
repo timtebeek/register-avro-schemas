@@ -6,7 +6,7 @@
 	<artifactId>register-avro-schemas</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<properties>
-		<avro.version>1.11.1</avro.version>
+		<avro.version>1.11.2</avro.version>
 		<java.version>17</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<schema-registry-url>http://kafka-schema-registry.internal:8085/</schema-registry-url>
