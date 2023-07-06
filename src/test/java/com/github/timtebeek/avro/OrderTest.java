@@ -23,7 +23,7 @@ class OrderTest {
 		String asString = toAndFromByteBufferToString(order);
 		assertThat(asString).isEqualToIgnoringWhitespace("""
 				{
-					"orderId": %s,
+					"orderId": "%s",
 					"price": {
 						"value": 1234567.890
 					}
